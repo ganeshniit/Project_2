@@ -13,6 +13,6 @@ public interface UserDao {
 	//public Users get(String id);
 	//public List<Users> list(); 
 	List<Users> getUsers();
-
+	int validateUser(String username,String password);
 
 }

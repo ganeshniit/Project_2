@@ -55,4 +55,16 @@ public class UserController {
 		 List<Users> users=userDao.getUsers();
 		return users;
 	 }	
+	@RequestMapping(value="/authenticate", method=RequestMethod.POST,headers="Accept=application/json")
+	public int authenticateUser(@RequestBody Users user)
+	{
+		System.out.println("In Authenticate");
+		System.out.println("name:"+user.getUsername());
+		System.out.println("password:"+user.getPassword());
+		int result=0;
+		result=userDao.validateUser(user.getUsername(), user.getPassword());
+		System.out.println("result is:"+result);
+		
+		return result;
+	}
 }

@@ -31,6 +31,42 @@ public class UserDaoImpl implements UserDao{
 		
 		return list;*/
 	}
+	public int validateUser(String username, String password) {
+		int res=0;
+		Session session=sessionfactory.getCurrentSession();
+		Query result=session.createQuery("from Users u where u.username='"+username+"'");
+		
+		List<Users> user=result.list();
+		System.out.println("users:"+user);
+		
+		if(user.size()==0)
+		{
+			res=0;
+		}
+		else
+		{
+			for(int i=0;i<user.size();i++)
+			{
+				System.out.println("inside loop");
+				String name=user.get(i).getPassword();
+				String pwd=user.get(i).getPassword();
+				String dbrole=user.get(i).getRole();
+				if(name.equals(username) && pwd.equals(password) && dbrole.equals("ROLE_USER"))
+				{
+					res=1;
+					System.out.println("The Result is:" +res);
+				}
+				else
+					if(name.equals(username) && pwd.equals(password) && dbrole.equals("ROLE_ADMIN"))
+					{
+						res=2;
+						System.out.println("The Result is:" +res);
+					}
+				
+			}
+		}
+		return res;
+	}
 	
 	
 	
