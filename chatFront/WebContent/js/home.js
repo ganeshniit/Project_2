@@ -54,7 +54,7 @@ chatworld.controller("registerController",function($scope,$http)
 						password:$scope.password,
 						country:$scope.country
 							};
-				var res=$http.post("http://localhost:8080/chat/registerUser",users);
+				var res=$http.post("http://localhost:8081/chat/registerUser",users);
 				res.success(function(data, status, headers, config)
 				{
 			console.log("status:"+status);
@@ -78,7 +78,7 @@ chatworld.controller("blogController",function($scope,$http,$rootScope)
 						blog_Name:$scope.blog_Name,
 						blog_Description:$scope.blog_Description
 							};
-var res=$http.post("http://localhost:8080/chat/createBlog",blog);
+var res=$http.post("http://localhost:8081/chat/createBlog",blog);
 				res.success(function(data, status, headers, config)
 						{
 					console.log("status:"+status);
@@ -110,7 +110,7 @@ chatworld.controller("careerController",function($scope,$http,$rootScope)
 						job_Description:$scope.job_Description,
 						eligibility:$scope.eligibility
 								};
-					var res=$http.post("http://localhost:8080/chat/createJob",career);
+					var res=$http.post("http://localhost:8081/chat/createJob",career);
 					res.success(function(data, status, headers, config)
 						{
 					console.log("status:"+status);
@@ -131,7 +131,7 @@ chatworld.controller("careerController",function($scope,$http,$rootScope)
 						username:$scope.username,
 						password:$scope.password
 								};
-			var res=$http.post("http://localhost:8080/chat/authenticate",login);
+			var res=$http.post("http://localhost:8081/chat/authenticate",login);
 					res.success(function(data, status, headers, config)
 						{
 					console.log("status:"+status);
@@ -154,7 +154,7 @@ chatworld.controller("loginController",['$scope','$http','$location','$rootScope
               			password:$scope.password
               							
               		} 
-             	$http.post("http://localhost:8080/chat/authenticate",login).then(function(response)
+             	$http.post("http://localhost:8081/chat/authenticate",login).then(function(response)
              		{
              			console.log("result data:"+response.data);
                  		 var r=response.data.toString();
@@ -212,7 +212,7 @@ chatworld.controller("forumController",function($scope,$http,$rootScope)
 				response:$scope.response
 				
 		};
-		var res=$http.post("http://localhost:8080/chat/createForum",forum); 
+		var res=$http.post("http://localhost:8081/chat/createForum",forum); 
 		res.success(function(data, status, headers, config) {
 		console.log("status:"+status);
 	});

@@ -55,19 +55,22 @@ public class UserController {
 	{
 		blogDao.createBlog(blog);
 	}
-	@RequestMapping(value="/viewBlogs",headers="Accept=application/json",method=RequestMethod.GET)
+	
+		@RequestMapping(value="/viewBlogs",headers="Accept=application/json",method=RequestMethod.GET)
 	public List<Blog> viewBlogs()
 	{
 		List<Blog> blog=blogDao.viewBlogs();
 		return blog;
 	}
-	@RequestMapping(value="/updateBlog",headers="Accept=application/json",method=RequestMethod.PUT)
+	
+		@RequestMapping(value="/updateBlog",headers="Accept=application/json",method=RequestMethod.PUT)
 	public void updateBlog(@RequestBody Blog blog)
 	{
 		System.out.println("Inside update blog");
 		blogDao.updateBlog(blog);
 	}
-	@RequestMapping(value="/deleteBlog/{id}",headers="Accept=application/json",method=RequestMethod.DELETE)
+	
+		@RequestMapping(value="/deleteBlog",headers="Accept=application/json",method=RequestMethod.DELETE)
 	public void deleteJob(@PathVariable int id)
 	{
 		blogDao.deleteBlog(id);
