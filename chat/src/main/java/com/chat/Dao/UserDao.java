@@ -14,5 +14,6 @@ public interface UserDao {
 	//public List<Users> list(); 
 	List<Users> getUsers();
 	int validateUser(String username,String password);
-
+	void updateUser(Users user);
+	Users viewUserById(int id);
 }

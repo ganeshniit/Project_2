@@ -17,6 +17,7 @@ public class UserDaoImpl implements UserDao{
 	@Autowired
 	SessionFactory sessionfactory;
 	public void registerUser(Users user) {
+		user.setRole("ROLE_USER");
 		sessionfactory.getCurrentSession().save(user);
 		
 	}
@@ -66,6 +67,16 @@ public class UserDaoImpl implements UserDao{
 			}
 		}
 		return res;
+	}
+	public void updateUser(Users user) {
+		// TODO Auto-generated method stub
+		sessionfactory.getCurrentSession().update(user);
+	}
+	public Users viewUserById(int id) {
+		// TODO Auto-generated method stub
+		Session session=sessionfactory.getCurrentSession();
+		Users users=(Users)session.get(Users.class, id);
+		return users;
 	}
 	
 	

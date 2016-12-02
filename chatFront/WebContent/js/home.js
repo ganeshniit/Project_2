@@ -29,7 +29,7 @@ chatworld.config(function($routeProvider)
 	.when("/userHome",
 			{
 		templateUrl:'partials/userHome.html',
-		controller:'userHomeController'					
+		/*controller:'userHomeController'*/					
 			})
 	.when("/career",
 			{
@@ -59,7 +59,7 @@ chatworld.config(function($routeProvider)
 			});
 });
 
-chatworld.controller("registerController",function($scope,$http)
+/*chatworld.controller("registerController",function($scope,$http)
 		{
 			console.log("iam in register controller")
 			$scope.register=function()
@@ -77,6 +77,74 @@ chatworld.controller("registerController",function($scope,$http)
 				});
 			}
 		});
+*/
+
+chatworld.controller('registerController',['$scope','fileUpload',function($scope,fileUpload)
+      {
+         console.log("i'm in register");
+         $scope.register=function()
+              {
+              	 	var file=$scope.myFile;
+               		var	username=$scope.username;
+              		var	email=$scope.email;
+                    var	password=$scope.password;
+                    var	country=$scope.country;
+               		console.log("username:"+username);
+                 	console.log("file is");
+                 	console.dir(file);
+                  	var uploadUrl="http://localhost:8081/chat/fileUpload";
+                    fileUpload.uploadFileToUrl(file,uploadUrl,username,email,password,country);
+                    console.log("link correct");
+                  };
+                            	
+         }]);
+
+chatworld.service('fileUpload',['$http','$location',function($http,$scope,$location)
+          {
+              this.uploadFileToUrl=function(file,uploadUrl,username,email,password,country)
+                  {
+                       console.log("link correct");
+                       var fd=new FormData();
+                       fd.append('file',file);
+                       fd.append('username',username);
+                       fd.append('email',email);
+                       fd.append('password',password);
+                       fd.append('country',country);
+                       console.log("fd"+fd);
+                       $http.post(uploadUrl,fd,{transformRequest:angular.identity,
+                                          	    headers:{'Content-Type':undefined}
+                                          		})
+                                          	    .success(function()
+                                          		  {
+                                          			$scope.message="u r successfully registerd ..u can login now";
+                                          			$scope.username="";
+                                          			$scope.password="";
+                                          		  })
+                                          		.error(function(){});
+                   }
+                                          	
+              }]);
+ chatworld.directive('fileModel',['$parse',function($parse) {
+                                          	return{
+                                                  	  link: function(scope, element, attrs) 
+                                                  	  {
+                                                  	  var model = $parse(attrs.fileModel);
+                                                  	  var modelSetter = model.assign;
+                                                  	          
+                                                  	  element.bind('change', function()
+                                                  			  {
+                                                  	  scope.$apply(function()
+                                                  		{
+                                                  	  modelSetter(scope, element[0].files[0]);
+                                                  	    });
+                                                  	        });
+                                                  	   }
+                                                   };
+                                            }]);
+
+
+
+
 chatworld.controller("blogController",function($scope,$http,$rootScope)
 		{
 	$rootScope.blog=true;
@@ -399,6 +467,9 @@ chatworld.controller("loginController",['$scope','$http','$location','$rootScope
                 					$rootScope.forum=true;		
                 					console.log('logout:'+$rootScope.logout);
                 					console.log("logged out:"+response.data);
+                					console.log("uname from root scope:"+$rootScope.uname);
+        							$rootScope.uname=$scope.username;
+        							console.log("uname:"+$rootScope.uname);
                 					$location.path('/userHome');
                 							}
                 						if(r==0)

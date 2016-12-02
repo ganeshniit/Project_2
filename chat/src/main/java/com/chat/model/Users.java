@@ -3,6 +3,9 @@ package com.chat.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class Users {
@@ -13,6 +16,11 @@ public class Users {
 	private String password;
 	private String country;
 	private String role;
+	@Transient
+	private MultipartFile file;
+	@Transient
+	private String imageData;
+
 	public String getRole() {
 		return role;
 	}
@@ -24,6 +32,18 @@ public class Users {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+	public String getImageData() {
+		return imageData;
+	}
+	public void setImageData(String imageData) {
+		this.imageData = imageData;
 	}
 	public String getUsername() {
 		return username;
